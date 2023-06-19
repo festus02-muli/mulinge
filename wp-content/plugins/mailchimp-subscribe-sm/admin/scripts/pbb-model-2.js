@@ -1,0 +1,277 @@
+( function( $ ) {
+pageBuilderApp.ULPBPage = Backbone.Model.extend({
+      defaults:{
+        pageID: P_ID,
+        postType: thisPostType,
+        pageLink: '',
+        pageTitle:'',
+        pageStatus:'unpublished',
+        pageBuilderVersion: PageBuilder_Version,
+        optinType:'',
+        currentStep:'',
+        pageOptions: {
+          setFrontPage: 0,
+          loadWpHead:0,
+          loadWpFooter:0,
+          pageBgImage: ' ',
+          pageBgColor: 'transparent',
+          pagePadding: {
+            pagePaddingTop : '',
+            pagePaddingBottom : '',
+            pagePaddingLeft : '',
+            pagePaddingRight : '',
+          },
+          pagePaddingTablet: {
+            pagePaddingTopTablet : '',
+            pagePaddingBottomTablet : '',
+            pagePaddingLeftTablet : '',
+            pagePaddingRightTablet : '',
+          },
+          pagePaddingMobile: {
+            pagePaddingTopMobile : '',
+            pagePaddingBottomMobile : '',
+            pagePaddingLeftMobile : '',
+            pagePaddingRightMobile : '',
+          },
+          pageSeoName: '',
+          pageSeoDescription: '',
+          pageSeoKeywords: '',
+          pageFavIconUrl: '',
+          pageLogoUrl: '',
+          VariantB_ID: '',
+          MultiVariantTesting: {
+            VariantB: '',
+            VariantC:'',
+            VariantD:'',
+          },
+          POcustomCSS:'',
+          POcustomJS:'',
+          POPBDefaults: {
+            POPBDefaultsEnable : 'false',
+            POPB_typefaces: {
+              typefaceHOne:'Arial',
+              typefaceHTwo:'Arial',
+              typefaceParagraph:'Arial',
+              typefaceButton:'Arial',
+              typefaceAnchorLink:'Arial'
+            },
+            POPB_typeSizes: {
+              typeSizeHOne:'45',
+              typeSizeHOneTablet:'',
+              typeSizeHOneMobile:'',
+              typeSizeHTwo:'29',
+              typeSizeHTwoTablet:'',
+              typeSizeHTwoMobile:'',
+              typeSizeParagraph:'15',
+              typeSizeParagraphTablet:'',
+              typeSizeParagraphMobile:'',
+              typeSizeButton:'16',
+              typeSizeButtonTablet:'',
+              typeSizeButtonMobile:'',
+              typeSizeAnchorLink:'15',
+              typeSizeAnchorLinkTablet:'',
+              typeSizeAnchorLinkMobile:'',
+            }
+          },
+          hideCloseBtn:'block',
+          closeOnOverlay:'false',
+          overlayColor:'rgba(0,0,0,0.6)',
+        },
+        campaignPlacement:{
+          thisOptinType:'',
+          displayOn:'',
+          selectCustomPages:'',
+          selectCustomPosts:'',
+          selectCustomCats:'',
+          displayAction:'none',
+          displayActionValue:'',
+          barPositioning:'bottom',
+          flyInPositioning:'bRight',
+          hideCampaignOn:'',
+          generatedShortcode:'',
+          popUpEntranceAnimation:'',
+          popUpExitAnimation:'',
+          hideAfterCampaignClosed:'true',
+          cookieConversionTime:'30',
+          cookieCloseTime:'1',
+          placeOptinAt:'afterPost',
+        },
+        Rows:{}
+      },
+      url: URLL
+});
+
+pageBuilderApp.colWidgetDefaults = {
+  widgetType:' ',
+  widgetStyling:'/* Custom CSS for widget here. */',
+  widgetMtop:'0',
+  widgetMleft:'0',
+  widgetMbottom:'0',
+  widgetMright:'0',
+  widgetPtop:'0',
+  widgetPleft:'0',
+  widgetPbottom:'0',
+  widgetPright:'0',
+  widgetPaddingTablet:{
+    rPTT:'1.5',
+    rPBT:'1.5',
+    rPLT:'1.5',
+    rPRT:'1.5',
+  },
+  widgetPaddingMobile:{
+    rPTM:'1.5',
+    rPBM:'1.5',
+    rPLM:'1.5',
+    rPRM:'1.5',
+  },
+  widgetMarginTablet:{
+    rMTT:'0',
+    rMBT:'0',
+    rMLT:'0',
+    rMRT:'0',
+    },
+  widgetMarginMobile:{
+    rMTM:'0',
+    rMBM:'0',
+    rMLM:'0',
+    rMRM:'0',
+  },
+  widgetBgColor: 'transparent',
+  widgetAnimation: 'none',
+  widgetBorderWidth: '',
+  widgetBorderStyle:'',
+  widgetBorderColor:'',
+  widgetBoxShadowH: '',
+  widgetBoxShadowV: '',
+  widgetBoxShadowBlur: '',
+  widgetBoxShadowColor: '',
+  widgetIsInline:false,
+  widgetIsInlineTablet:'',
+  widgetIsInlineMobile:'',
+  widgetCustomClass: '',
+  widgBgImg:'',
+  widgBackgroundType:'solid',
+  widgGradient:{
+    widgGradientColorFirst: '#dd9933',
+    widgGradientLocationFirst:'55',
+    widgGradientColorSecond:'#eeee22',
+    widgGradientLocationSecond:'50',
+    widgGradientType:'linear',
+    widgGradientPosition:'top left',
+    widgGradientAngle:'135',
+  },
+  widgHoverOptions: {
+    widgBgColorHover:'hsv(0, 0%, 0%)',
+    widgBackgroundTypeHover:'',
+    widgHoverTransitionDuration:'',
+    widgetHoverAnimation:'',
+    widgGradientHover:{
+      widgGradientColorFirstHover: 'hsv(0, 0%, 0%)',
+      widgGradientLocationFirstHover:'',
+      widgGradientColorSecondHover:'hsv(0, 0%, 0%)',
+      widgGradientLocationSecondHover:'',
+      widgGradientTypeHover:'linear',
+      widgGradientPositionHover:'top left',
+      widgGradientAngleHover:'',
+    }
+  },
+  borderRadius: {wbrt: "", wbrb: "", wbrl: "", wbrr: ""},
+  borderWidth: {wbwt: "", wbwb: "", wbwl: "", wbwr: ""},
+  widgHideOnDesktop:'',
+  widgHideOnTablet:'',
+  widgHideOnMobile:'',
+};
+
+
+pageBuilderApp.ColWidget = Backbone.Model.extend({
+      defaults:{
+      	widgetType:' ',
+        widgetStyling:'/* Custom CSS for widget here. */',
+        widgetMtop:'0',
+        widgetMleft:'0',
+        widgetMbottom:'0',
+        widgetMright:'0',
+        widgetPtop:'0',
+        widgetPleft:'0',
+        widgetPbottom:'0',
+        widgetPright:'0',
+          widgetPaddingTablet:{
+            rPTT:'',
+            rPBT:'',
+            rPLT:'',
+            rPRT:'',
+          },
+          widgetPaddingMobile:{
+            rPTM:'',
+            rPBM:'',
+            rPLM:'',
+            rPRM:'',
+          },
+          widgetMarginTablet:{
+            rMTT:'',
+            rMBT:'',
+            rMLT:'',
+            rMRT:'',
+          },
+          widgetMarginMobile:{
+            rMTM:'',
+            rMBM:'',
+            rMLM:'',
+            rMRM:'',
+          },
+        widgetBgColor: 'transparent',
+        widgetAnimation: 'none',
+        widgetBorderWidth: '',
+        widgetBorderStyle:'',
+        widgetBorderColor:'',
+        widgetBoxShadowH: '',
+        widgetBoxShadowV: '',
+        widgetBoxShadowBlur: '',
+        widgetBoxShadowColor: '',
+        widgetIsInline:false,
+        widgetIsInlineTablet:'',
+        widgetIsInlineMobile:'',
+        widgetCustomClass: '',
+        widgBgImg:'',
+        widgBackgroundType:'solid',
+        widgGradient:{
+          widgGradientColorFirst: '#dd9933',
+          widgGradientLocationFirst:'55',
+          widgGradientColorSecond:'#eeee22',
+          widgGradientLocationSecond:'50',
+          widgGradientType:'linear',
+          widgGradientPosition:'top left',
+          widgGradientAngle:'135',
+        },
+        widgHoverOptions: {
+          widgBgColorHover:'',
+          widgBackgroundTypeHover:'',
+          widgHoverTransitionDuration:'',
+          widgGradientHover:{
+            widgGradientColorFirstHover: '',
+            widgGradientLocationFirstHover:'',
+            widgGradientColorSecondHover:'',
+            widgGradientLocationSecondHover:'',
+            widgGradientTypeHover:'linear',
+            widgGradientPositionHover:'top left',
+            widgGradientAngleHover:'',
+          }
+        },
+        widgHideOnDesktop:'',
+        widgHideOnTablet:'',
+        widgHideOnMobile:'',
+      },
+      url: '/'
+});
+
+
+pageBuilderApp.RowCollection = Backbone.Collection.extend({
+    model:pageBuilderApp.Row
+});
+
+pageBuilderApp.WidgetCollection = Backbone.Collection.extend({
+    model:pageBuilderApp.ColWidget
+});
+
+
+}( jQuery ) );
